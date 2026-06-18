@@ -6,8 +6,8 @@ export const site = {
   tagline: "Built to Deliver. Made to Lead.",
   description:
     "Aurevia Global is a premium apparel manufacturer specializing in private label production, medical apparel, workwear, and performance activewear for international markets.",
-  url: "https://aureviaglobal.co",
-  email: "info@aureviaglobal.com",
+  url: "https://aureviaglobal.site",
+  email: "info@aureviaglobal.site",
   phone: "+1 (212) 555-0187",
   phoneHref: "tel:+12125550187",
   address: {

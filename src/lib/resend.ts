@@ -12,7 +12,7 @@ const resend = apiKey ? new Resend(apiKey) : null;
 export async function sendLeadNotification(lead: QuoteInput): Promise<boolean> {
   if (!resend) return false;
 
-  const to = process.env.LEADS_NOTIFY_EMAIL ?? "info@aureviaglobal.com";
+  const to = process.env.LEADS_NOTIFY_EMAIL ?? "info@aureviaglobal.site";
   const from =
     process.env.LEADS_FROM_EMAIL ?? "Aurevia Global <onboarding@resend.dev>";
 

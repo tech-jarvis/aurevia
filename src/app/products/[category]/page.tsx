@@ -39,7 +39,12 @@ export default async function ProductCategoryPage({ params }: Params) {
 
   return (
     <>
-      <PageHero eyebrow={line.kicker} title={line.name} lead={line.intro} />
+      <PageHero
+        eyebrow={line.kicker}
+        title={line.name}
+        lead={line.intro}
+        image={{ src: line.image, alt: `${line.name} apparel` }}
+      />
 
       {/* highlight pills */}
       <Section className="py-12">

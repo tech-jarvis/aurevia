@@ -1,8 +1,8 @@
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { ButtonLink } from "./ui/button";
 import { Reveal } from "./ui/reveal";
 import { type ProductLine } from "@/content/products";
-import { cn } from "@/lib/utils";
 
 /** Large card linking to a product line (Medical / Workwear / Active). */
 export function ProductLineCard({
@@ -15,13 +15,19 @@ export function ProductLineCard({
   return (
     <Reveal
       delay={index * 0.1}
-      className="group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-surface-2 p-8 transition-all hover:border-gold/40 hover:bg-surface"
+      className="group relative flex flex-col overflow-hidden rounded-3xl border border-line bg-surface-2 transition-all hover:border-gold/40 hover:bg-surface"
     >
-      <div
-        className={cn(
-          "absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-gold-light to-gold transition-transform duration-500 group-hover:scale-x-100",
-        )}
-      />
+      <div className="relative aspect-[16/10] overflow-hidden">
+        <Image
+          src={line.image}
+          alt={`${line.name} apparel`}
+          fill
+          sizes="(max-width: 1024px) 100vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface-2 via-surface-2/20 to-transparent" />
+      </div>
+      <div className="flex flex-1 flex-col p-8 pt-6">
       <span className="eyebrow">{line.kicker}</span>
       <h3 className="mt-3 heading text-3xl text-cream">{line.name}</h3>
       <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{line.intro}</p>
@@ -45,6 +51,7 @@ export function ProductLineCard({
         Explore {line.name.replace("Aurevia ", "")}
         <ArrowUpRight className="h-4 w-4" />
       </ButtonLink>
+      </div>
     </Reveal>
   );
 }

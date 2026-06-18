@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Target, Compass } from "lucide-react";
 import { PageHero } from "@/components/hero";
+import { Container } from "@/components/ui/container";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { StatGrid } from "@/components/stat-grid";
 import { FeatureGrid } from "@/components/feature-grid";
@@ -28,6 +30,19 @@ export default function AboutPage() {
         title={<>We don&apos;t just manufacture apparel — we build partnerships.</>}
         lead="Aurevia Global is a premium apparel manufacturing company specializing in private label production, healthcare apparel, workwear and performance apparel for international markets."
       />
+
+      <Container className="-mt-8">
+        <div className="relative aspect-[21/7] overflow-hidden rounded-3xl border border-line">
+          <Image
+            src="/photos/factory-aisle.jpg"
+            alt="Aurevia Global manufacturing facility"
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
+        </div>
+      </Container>
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-2">

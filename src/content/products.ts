@@ -12,6 +12,7 @@ export type ProductLine = {
   kicker: string; // short positioning line
   headline: string; // hero phrase
   intro: string;
+  image: string; // hero photo in /public/photos
   highlights: Highlight[]; // small badges below hero
   range: RangeItem[]; // the product range cards
   features: Feature[]; // key features sidebar
@@ -25,6 +26,7 @@ export const productLines: Record<ProductCategory, ProductLine> = {
     headline: "Built for the demands of modern healthcare.",
     intro:
       "Our medical apparel is designed to meet the demanding needs of healthcare environments while ensuring comfort, durability and a professional appearance.",
+    image: "/photos/medical.jpg",
     highlights: [
       { icon: "Sparkles", title: "Premium Fabrics", text: "" },
       { icon: "Wind", title: "Comfort & Breathable", text: "" },
@@ -54,6 +56,7 @@ export const productLines: Record<ProductCategory, ProductLine> = {
     headline: "Durable uniforms for every industry.",
     intro:
       "Our workwear and uniform solutions are designed to deliver durability, comfort and a professional look across a wide range of industries and working environments.",
+    image: "/photos/workwear.jpg",
     highlights: [
       { icon: "ShieldCheck", title: "Durable Construction", text: "" },
       { icon: "Wind", title: "Comfort Focused", text: "" },
@@ -82,6 +85,7 @@ export const productLines: Record<ProductCategory, ProductLine> = {
     headline: "Activewear engineered for performance.",
     intro:
       "Our activewear is engineered for performance, comfort and durability. Whether it's training, competition or everyday performance, Aurevia Active keeps you ahead.",
+    image: "/photos/active.jpg",
     highlights: [
       { icon: "Droplets", title: "Breathable Fabrics", text: "" },
       { icon: "Move", title: "Four-Way Stretch", text: "" },

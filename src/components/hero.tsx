@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "./ui/button";
 import { Container } from "./ui/container";
@@ -72,24 +73,45 @@ export function HomeHero() {
   );
 }
 
-/** Compact hero for inner pages. */
+/** Compact hero for inner pages. Pass `image` for a split text/photo layout. */
 export function PageHero({
   eyebrow,
   title,
   lead,
+  image,
 }: {
   eyebrow: string;
   title: React.ReactNode;
   lead?: string;
+  image?: { src: string; alt: string };
 }) {
   return (
     <section className="bg-aura border-b border-line">
-      <Container className="py-24 sm:py-28">
+      <Container
+        className={
+          image
+            ? "grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-2"
+            : "py-24 sm:py-28"
+        }
+      >
         <div className="max-w-3xl">
           <span className="eyebrow">{eyebrow}</span>
           <h1 className="mt-5 heading text-5xl text-cream sm:text-6xl">{title}</h1>
           {lead && <p className="mt-6 max-w-2xl text-lg text-muted">{lead}</p>}
         </div>
+        {image && (
+          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-line">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/50 to-transparent" />
+          </div>
+        )}
       </Container>
     </section>
   );

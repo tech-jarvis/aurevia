@@ -19,6 +19,10 @@ export default function CapabilitiesPage() {
         eyebrow="Manufacturing Capabilities"
         title="Built for scale. Engineered for excellence."
         lead="At Aurevia Global we offer end-to-end manufacturing solutions designed to support your brand at every stage of development and production."
+        image={{
+          src: "/photos/factory-worker.jpg",
+          alt: "Aurevia Global production floor",
+        }}
       />
 
       <Section>
