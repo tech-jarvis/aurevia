@@ -1,0 +1,42 @@
+// Aurevia Global — data model
+// Stores inbound quote / contact requests captured from the website.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProductLine {
+  MEDICAL
+  WORKWEAR
+  ACTIVE
+  PRIVATE_LABEL
+  OTHER
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+model QuoteRequest {
+  id          String      @id @default(cuid())
+  name        String
+  company     String
+  email       String
+  phone       String?
+  country     String?
+  productLine ProductLine
+  quantity    String?
+  message     String
+  status      LeadStatus  @default(NEW)
+  createdAt   DateTime    @default(now())
+
+  @@index([createdAt])
+  @@index([status])
+}
