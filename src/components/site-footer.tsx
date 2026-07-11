@@ -5,7 +5,7 @@ import { Container } from "./ui/container";
 import { site, nav } from "@/content/site";
 import { productOrder, productLines } from "@/content/products";
 
-export function SiteFooter() {
+export function SiteFooter({ logoUrl }: { logoUrl?: string | null }) {
   const year = new Date().getFullYear();
 
   return (
@@ -13,7 +13,7 @@ export function SiteFooter() {
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div className="flex flex-col gap-5">
-            <Logo />
+            <Logo imageUrl={logoUrl} />
             <p className="max-w-xs text-sm text-muted">{site.description}</p>
             <p className="eyebrow text-gold">{site.tagline}</p>
           </div>

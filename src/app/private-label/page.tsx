@@ -5,6 +5,7 @@ import { FeatureGrid } from "@/components/feature-grid";
 import { CtaSection } from "@/components/cta-section";
 import { Reveal } from "@/components/ui/reveal";
 import { privateLabelServices, process } from "@/content/private-label";
+import { getPageHero, getSection } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Private Label Solutions",
@@ -12,29 +13,34 @@ export const metadata: Metadata = {
     "Your brand. Our expertise. End-to-end private label apparel manufacturing — from product development and custom branding to bulk production and global delivery.",
 };
 
-export default function PrivateLabelPage() {
+// Reads admin-editable content — always render fresh.
+export const dynamic = "force-dynamic";
+
+export default async function PrivateLabelPage() {
+  const [hero, services, processSection] = await Promise.all([
+    getPageHero("private-label"),
+    getSection("private-label-services"),
+    getSection("private-label-process"),
+  ]);
+
   return (
     <>
-      <PageHero
-        eyebrow="Private Label Solutions"
-        title={<>Your brand. Our expertise.</>}
-        lead="We help brands bring their vision to life with comprehensive private label solutions — from design to delivery, we handle every detail so you can focus on growing your brand."
-      />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} lead={hero.lead ?? undefined} />
 
       <Section>
         <SectionHeading
-          eyebrow="Services We Include"
-          title="Everything your brand needs."
-          lead="A complete private label service designed to make launching and scaling your apparel line seamless."
+          eyebrow={services.eyebrow ?? undefined}
+          title={services.title}
+          lead={services.lead ?? undefined}
         />
         <FeatureGrid items={privateLabelServices} columns={3} className="mt-12" />
       </Section>
 
       <Section className="border-y border-line bg-surface/40">
         <SectionHeading
-          eyebrow="From Concept to Delivery"
-          title="Built for your brand. Made for the world."
-          lead="A proven eight-step process that turns your idea into a market-ready product, delivered on time, anywhere."
+          eyebrow={processSection.eyebrow ?? undefined}
+          title={processSection.title}
+          lead={processSection.lead ?? undefined}
         />
         <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p, i) => (

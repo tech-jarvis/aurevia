@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { LogOut } from "lucide-react";
+import Link from "next/link";
+import { LogOut, LayoutTemplate } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { Container } from "@/components/ui/container";
 import { productLineLabels } from "@/lib/validation";
@@ -46,12 +47,21 @@ export default async function AdminPage() {
             {leads.length} {leads.length === 1 ? "request" : "requests"}
           </p>
         </div>
-        <form action={logout}>
-          <button className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-cream hover:border-gold hover:text-gold">
-            <LogOut className="h-4 w-4" />
-            Sign out
-          </button>
-        </form>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/admin/content"
+            className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-cream hover:border-gold hover:text-gold"
+          >
+            <LayoutTemplate className="h-4 w-4" />
+            Manage Content
+          </Link>
+          <form action={logout}>
+            <button className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm text-cream hover:border-gold hover:text-gold">
+              <LogOut className="h-4 w-4" />
+              Sign out
+            </button>
+          </form>
+        </div>
       </div>
 
       {leads.length === 0 ? (

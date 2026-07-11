@@ -12,8 +12,17 @@ const heroPills = [
   { icon: "Tag", label: "Private Label" },
 ];
 
-/** Home page hero. */
-export function HomeHero() {
+/** Home page hero. Pass `override` when admin-edited copy replaces the defaults. */
+export function HomeHero({
+  override,
+}: {
+  override?: { eyebrow: string; title: string; lead: string | null };
+} = {}) {
+  const eyebrow = override?.eyebrow ?? "Premium Apparel Manufacturing";
+  const lead =
+    override?.lead ??
+    `${site.name} partners with brands, distributors and retailers to produce premium medical apparel, workwear and activewear — at global standards for quality, consistency and performance.`;
+
   return (
     <section className="bg-aura relative overflow-hidden">
       {/* faint grid + glow */}
@@ -31,19 +40,23 @@ export function HomeHero() {
         <div className="max-w-3xl">
           <span className="eyebrow inline-flex items-center gap-2">
             <span className="h-px w-8 bg-gold" />
-            Premium Apparel Manufacturing
+            {eyebrow}
           </span>
 
-          <h1 className="mt-6 heading text-6xl leading-[0.92] text-cream sm:text-7xl lg:text-8xl">
-            Built to <span className="text-gold-gradient">Deliver</span>.
-            <br />
-            Made to <span className="text-gold-gradient">Lead</span>.
-          </h1>
+          {override?.title ? (
+            <h1 className="mt-6 heading text-6xl leading-[0.92] text-cream sm:text-7xl lg:text-8xl">
+              {override.title}
+            </h1>
+          ) : (
+            <h1 className="mt-6 heading text-6xl leading-[0.92] text-cream sm:text-7xl lg:text-8xl">
+              Built to <span className="text-gold-gradient">Deliver</span>.
+              <br />
+              Made to <span className="text-gold-gradient">Lead</span>.
+            </h1>
+          )}
 
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted">
-            {site.name} partners with brands, distributors and retailers to
-            produce premium medical apparel, workwear and activewear — at global
-            standards for quality, consistency and performance.
+            {lead}
           </p>
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">

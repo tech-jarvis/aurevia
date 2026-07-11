@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /** Aurevia "A" chevron/mountain mark — placeholder SVG until brand asset supplied. */
@@ -30,9 +31,12 @@ export function LogoMark({ className }: { className?: string }) {
 export function Logo({
   className,
   showWordmark = true,
+  imageUrl,
 }: {
   className?: string;
   showWordmark?: boolean;
+  /** Admin-uploaded logo image; falls back to the built-in mark when unset. */
+  imageUrl?: string | null;
 }) {
   return (
     <Link
@@ -40,7 +44,13 @@ export function Logo({
       className={cn("group inline-flex items-center gap-3", className)}
       aria-label="Aurevia Global — home"
     >
-      <LogoMark className="h-9 transition-transform group-hover:scale-105" />
+      {imageUrl ? (
+        <span className="relative block h-9 w-9 shrink-0 overflow-hidden rounded-lg transition-transform group-hover:scale-105">
+          <Image src={imageUrl} alt="Aurevia Global" fill className="object-contain" />
+        </span>
+      ) : (
+        <LogoMark className="h-9 transition-transform group-hover:scale-105" />
+      )}
       {showWordmark && (
         <span className="leading-none">
           <span className="block heading text-lg tracking-[0.18em] text-cream">

@@ -13,6 +13,12 @@ import {
   productOrder,
   type ProductCategory,
 } from "@/content/products";
+import {
+  getPageHero,
+  getSection,
+  type PageHeroKey,
+  type SectionKey,
+} from "@/lib/site-content";
 
 type Params = { params: Promise<{ category: string }> };
 
@@ -30,20 +36,31 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
+// Reads admin-editable content — always render fresh.
+export const dynamic = "force-dynamic";
+
 export default async function ProductCategoryPage({ params }: Params) {
   const { category } = await params;
   const line = productLines[category as ProductCategory];
   if (!line) notFound();
 
   const others = productOrder.filter((s) => s !== line.slug);
+  const [hero, range] = await Promise.all([
+    getPageHero(`product-${line.slug}` as PageHeroKey),
+    getSection(`product-${line.slug}-range` as SectionKey),
+  ]);
 
   return (
     <>
       <PageHero
-        eyebrow={line.kicker}
-        title={line.name}
-        lead={line.intro}
-        image={{ src: line.image, alt: `${line.name} apparel` }}
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        lead={hero.lead ?? undefined}
+        image={
+          hero.imageUrl
+            ? { src: hero.imageUrl, alt: hero.imageAlt ?? `${line.name} apparel` }
+            : undefined
+        }
       />
 
       {/* highlight pills */}
@@ -66,8 +83,8 @@ export default async function ProductCategoryPage({ params }: Params) {
           {/* Range */}
           <div>
             <SectionHeading
-              eyebrow={`Our ${line.name.replace("Aurevia ", "")} Range`}
-              title="Engineered for the job."
+              eyebrow={range.eyebrow ?? undefined}
+              title={range.title}
             />
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {line.range.map((item, i) => (

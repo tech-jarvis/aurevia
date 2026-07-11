@@ -12,7 +12,7 @@ import { Container } from "./ui/container";
 import { nav } from "@/content/site";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader() {
+export function SiteHeader({ logoUrl }: { logoUrl?: string | null }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +35,7 @@ export function SiteHeader() {
       )}
     >
       <Container className="flex h-20 items-center justify-between gap-6">
-        <Logo />
+        <Logo imageUrl={logoUrl} />
 
         <nav className="hidden items-center gap-8 lg:flex">
           {nav.map((item) => {

@@ -4,12 +4,16 @@ import { PageHero } from "@/components/hero";
 import { Section } from "@/components/ui/section";
 import { QuoteForm } from "@/components/quote-form";
 import { site } from "@/content/site";
+import { getPageHero } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Contact & Request a Quote",
   description:
     "Get in touch with Aurevia Global. Request a quote for medical apparel, workwear, activewear or private label manufacturing.",
 };
+
+// Reads admin-editable content — always render fresh.
+export const dynamic = "force-dynamic";
 
 const contactCards = [
   {
@@ -36,14 +40,12 @@ const contactCards = [
   },
 ];
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const hero = await getPageHero("contact");
+
   return (
     <>
-      <PageHero
-        eyebrow="Let's Build Something Great Together"
-        title="Request a Quote"
-        lead="Whether you're launching a new brand or expanding your product line, tell us what you need and our team will respond promptly."
-      />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} lead={hero.lead ?? undefined} />
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">

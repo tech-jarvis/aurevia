@@ -40,3 +40,34 @@ model QuoteRequest {
   @@index([createdAt])
   @@index([status])
 }
+
+/// Admin-editable page hero (eyebrow/title/lead + optional photo). One row per page/product line.
+model PageHero {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  eyebrow   String
+  title     String
+  lead      String?
+  imageUrl  String?
+  imageAlt  String?
+  updatedAt DateTime @updatedAt
+}
+
+/// Admin-editable section heading (eyebrow/title/lead) used within a page.
+model SectionHeading {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  eyebrow   String?
+  title     String
+  lead      String?
+  updatedAt DateTime @updatedAt
+}
+
+/// Admin-editable standalone image (e.g. logo, in-page photos) not tied to a hero.
+model SiteImage {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  url       String
+  alt       String
+  updatedAt DateTime @updatedAt
+}

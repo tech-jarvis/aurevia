@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import { Lock, Loader2 } from "lucide-react";
 import { login } from "./actions";
 
-export function LoginForm() {
+export function LoginForm({ redirectTo }: { redirectTo?: string } = {}) {
   const [state, action, pending] = useActionState(login, null);
 
   return (
@@ -19,6 +19,7 @@ export function LoginForm() {
       <p className="text-sm text-muted">
         Enter your admin username and password to view submitted quote requests.
       </p>
+      {redirectTo && <input type="hidden" name="redirectTo" value={redirectTo} />}
       <input
         type="text"
         name="username"

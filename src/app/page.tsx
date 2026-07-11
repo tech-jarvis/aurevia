@@ -12,11 +12,30 @@ import { whyAurevia } from "@/content/capabilities";
 import { productOrder, productLines } from "@/content/products";
 import { regions } from "@/content/regions";
 import { industries } from "@/content/industries";
+import { getPageHero, getSection, pageHeroDefaults } from "@/lib/site-content";
 
-export default function HomePage() {
+// Reads admin-editable content — always render fresh.
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const [hero, about, why, products, global] = await Promise.all([
+    getPageHero("home"),
+    getSection("home-about"),
+    getSection("home-why"),
+    getSection("home-products"),
+    getSection("home-global"),
+  ]);
+
   return (
     <>
-      <HomeHero />
+      <HomeHero
+        override={{
+          eyebrow: hero.eyebrow,
+          // Keep the styled two-line headline unless an admin has actually changed it.
+          title: hero.title === pageHeroDefaults.home.title ? "" : hero.title,
+          lead: hero.lead,
+        }}
+      />
 
       {/* Stats */}
       <Section className="pt-16 sm:pt-20">
@@ -27,16 +46,12 @@ export default function HomePage() {
       <Section className="py-0">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <span className="eyebrow">Who We Are</span>
+            <span className="eyebrow">{about.eyebrow}</span>
             <h2 className="mt-4 heading text-4xl text-cream sm:text-5xl">
-              A premium apparel manufacturer for global markets.
+              {about.title}
             </h2>
             <p className="mt-6 text-base leading-relaxed text-muted">
-              Aurevia Global specializes in private label production, healthcare
-              apparel, workwear and performance apparel for international markets.
-              With a commitment to precision manufacturing and scalable
-              production, we help businesses transform concepts into market-ready
-              products.
+              {about.lead}
             </p>
             <ButtonLink href="/about" variant="outline" className="mt-8">
               More About Us
@@ -66,9 +81,9 @@ export default function HomePage() {
       {/* Why Aurevia */}
       <Section>
         <SectionHeading
-          eyebrow="Why Aurevia Global?"
-          title="Your growth is our purpose."
-          lead="We combine advanced manufacturing, skilled craftsmanship and customer-focused solutions to deliver premium apparel that meets global expectations."
+          eyebrow={why.eyebrow ?? undefined}
+          title={why.title}
+          lead={why.lead ?? undefined}
         />
         <FeatureGrid items={whyAurevia} columns={3} className="mt-12" />
       </Section>
@@ -76,9 +91,9 @@ export default function HomePage() {
       {/* Product lines */}
       <Section className="border-y border-line bg-surface/40">
         <SectionHeading
-          eyebrow="Product Lines"
-          title="Apparel for every industry."
-          lead="End-to-end manufacturing across three specialized lines, plus full private label solutions."
+          eyebrow={products.eyebrow ?? undefined}
+          title={products.title}
+          lead={products.lead ?? undefined}
         />
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {productOrder.map((slug, i) => (
@@ -97,14 +112,12 @@ export default function HomePage() {
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <Reveal>
-            <span className="eyebrow">Global Reach. Local Commitment.</span>
+            <span className="eyebrow">{global.eyebrow}</span>
             <h2 className="mt-4 heading text-4xl text-cream sm:text-5xl">
-              World-class manufacturing, delivered worldwide.
+              {global.title}
             </h2>
             <p className="mt-6 text-base leading-relaxed text-muted">
-              With a strong global network and a customer-first approach, Aurevia
-              Global delivers world-class manufacturing solutions and builds
-              long-term partnerships across the globe.
+              {global.lead}
             </p>
           </Reveal>
           <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">

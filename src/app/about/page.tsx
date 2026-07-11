@@ -9,6 +9,7 @@ import { FeatureGrid } from "@/components/feature-grid";
 import { CtaSection } from "@/components/cta-section";
 import { Reveal } from "@/components/ui/reveal";
 import { commitments } from "@/content/stats";
+import { getPageHero, getSection, getSiteImage } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "About",
@@ -16,33 +17,41 @@ export const metadata: Metadata = {
     "Aurevia Global is a premium apparel manufacturer specializing in private label production, healthcare apparel, workwear and performance apparel for international markets.",
 };
 
+// Reads admin-editable content — always render fresh.
+export const dynamic = "force-dynamic";
+
 const commitmentItems = commitments.map((c) => ({
   icon: "BadgeCheck",
   title: c.title,
   text: c.text,
 }));
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [hero, numbers, commitment, facilityPhoto] = await Promise.all([
+    getPageHero("about"),
+    getSection("about-numbers"),
+    getSection("about-commitment"),
+    getSiteImage("about-factory-aisle"),
+  ]);
+
   return (
     <>
-      <PageHero
-        eyebrow="About Us"
-        title={<>We don&apos;t just manufacture apparel — we build partnerships.</>}
-        lead="Aurevia Global is a premium apparel manufacturing company specializing in private label production, healthcare apparel, workwear and performance apparel for international markets."
-      />
+      <PageHero eyebrow={hero.eyebrow} title={hero.title} lead={hero.lead ?? undefined} />
 
-      <Container className="-mt-8">
-        <div className="relative aspect-[21/7] overflow-hidden rounded-3xl border border-line">
-          <Image
-            src="/photos/factory-aisle.jpg"
-            alt="Aurevia Global manufacturing facility"
-            fill
-            sizes="100vw"
-            className="object-cover"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
-        </div>
-      </Container>
+      {facilityPhoto && (
+        <Container className="-mt-8">
+          <div className="relative aspect-[21/7] overflow-hidden rounded-3xl border border-line">
+            <Image
+              src={facilityPhoto.url}
+              alt={facilityPhoto.alt}
+              fill
+              sizes="100vw"
+              className="object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
+          </div>
+        </Container>
+      )}
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-2">
@@ -90,8 +99,8 @@ export default function AboutPage() {
 
       <Section className="border-y border-line bg-surface/40">
         <SectionHeading
-          eyebrow="By the Numbers"
-          title="Built for scale. Engineered for excellence."
+          eyebrow={numbers.eyebrow ?? undefined}
+          title={numbers.title}
           align="center"
         />
         <StatGrid className="mt-12" />
@@ -99,9 +108,9 @@ export default function AboutPage() {
 
       <Section>
         <SectionHeading
-          eyebrow="Our Commitment to Excellence"
-          title="The standards behind every order."
-          lead="Six principles guide how we work with every client, on every project."
+          eyebrow={commitment.eyebrow ?? undefined}
+          title={commitment.title}
+          lead={commitment.lead ?? undefined}
         />
         <FeatureGrid items={commitmentItems} columns={3} className="mt-12" />
       </Section>
