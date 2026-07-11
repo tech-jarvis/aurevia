@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/content/site";
 import { productOrder } from "@/content/products";
+import { productItems } from "@/content/product-items";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = site.url;
@@ -12,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/our-factory",
     "/contact",
     ...productOrder.map((slug) => `/products/${slug}`),
+    ...productOrder.map((slug) => `/products/${slug}/${productItems[slug].slug}`),
   ];
 
   const now = new Date();
