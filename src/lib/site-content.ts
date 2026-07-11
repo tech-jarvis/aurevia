@@ -13,6 +13,7 @@ export type PageHeroKey =
   | "capabilities"
   | "private-label"
   | "contact"
+  | "our-factory"
   | "product-medical"
   | "product-workwear"
   | "product-active";
@@ -31,6 +32,7 @@ export const pageHeroLabels: Record<PageHeroKey, string> = {
   capabilities: "Capabilities — Hero",
   "private-label": "Private Label — Hero",
   contact: "Contact — Hero",
+  "our-factory": "Our Factory — Hero",
   "product-medical": "Products / Medical — Hero",
   "product-workwear": "Products / Workwear — Hero",
   "product-active": "Products / Active — Hero",
@@ -39,10 +41,10 @@ export const pageHeroLabels: Record<PageHeroKey, string> = {
 export const pageHeroDefaults: Record<PageHeroKey, PageHeroContent> = {
   home: {
     eyebrow: "Premium Apparel Manufacturing",
-    title: "Built to Deliver. Made to Lead.",
-    lead: "Aurevia Global partners with brands, distributors and retailers to produce premium medical apparel, workwear and activewear — at global standards for quality, consistency and performance.",
-    imageUrl: null,
-    imageAlt: null,
+    title: "Manufacturing Without Compromise",
+    lead: "Premium apparel manufacturing built on precision, innovation and integrity.",
+    imageUrl: "/photos/factory-aisle.jpg",
+    imageAlt: "Aurevia Global manufacturing facility",
   },
   about: {
     eyebrow: "About Us",
@@ -93,12 +95,21 @@ export const pageHeroDefaults: Record<PageHeroKey, PageHeroContent> = {
     imageUrl: "/photos/active.jpg",
     imageAlt: "Aurevia Active apparel",
   },
+  "our-factory": {
+    eyebrow: "Our Factory",
+    title: "Infrastructure That Delivers",
+    lead: "A modern manufacturing facility built for scale — advanced machinery, skilled teams and a logistics network that gets your order where it needs to be, on time.",
+    imageUrl: "/photos/factory-aisle.jpg",
+    imageAlt: "Aurevia Global factory floor",
+  },
 };
 
 export type SectionKey =
   | "home-about"
   | "home-why"
   | "home-products"
+  | "home-process"
+  | "home-factory"
   | "home-global"
   | "about-numbers"
   | "about-commitment"
@@ -108,7 +119,8 @@ export type SectionKey =
   | "private-label-process"
   | "product-medical-range"
   | "product-workwear-range"
-  | "product-active-range";
+  | "product-active-range"
+  | "our-factory-numbers";
 
 export type SectionContent = {
   eyebrow: string | null;
@@ -120,6 +132,8 @@ export const sectionLabels: Record<SectionKey, string> = {
   "home-about": "Home — Who We Are",
   "home-why": "Home — Why Aurevia",
   "home-products": "Home — Product Lines",
+  "home-process": "Home — Our Process",
+  "home-factory": "Home — Our Factory Teaser",
   "home-global": "Home — Global Reach",
   "about-numbers": "About — By the Numbers",
   "about-commitment": "About — Our Commitment",
@@ -130,13 +144,14 @@ export const sectionLabels: Record<SectionKey, string> = {
   "product-medical-range": "Products / Medical — Range",
   "product-workwear-range": "Products / Workwear — Range",
   "product-active-range": "Products / Active — Range",
+  "our-factory-numbers": "Our Factory — By the Numbers",
 };
 
 export const sectionDefaults: Record<SectionKey, SectionContent> = {
   "home-about": {
     eyebrow: "Who We Are",
-    title: "A premium apparel manufacturer for global markets.",
-    lead: "Aurevia Global specializes in private label production, healthcare apparel, workwear and performance apparel for international markets. With a commitment to precision manufacturing and scalable production, we help businesses transform concepts into market-ready products.",
+    title: "Built on Experience. Driven by Performance.",
+    lead: "Aurevia Global is a premium apparel manufacturing company delivering world-class quality for global brands. From concept to production, we build partnerships that last.",
   },
   "home-why": {
     eyebrow: "Why Aurevia Global?",
@@ -152,6 +167,16 @@ export const sectionDefaults: Record<SectionKey, SectionContent> = {
     eyebrow: "Global Reach. Local Commitment.",
     title: "World-class manufacturing, delivered worldwide.",
     lead: "With a strong global network and a customer-first approach, Aurevia Global delivers world-class manufacturing solutions and builds long-term partnerships across the globe.",
+  },
+  "home-process": {
+    eyebrow: "Our Process",
+    title: "Precision at Every Step.",
+    lead: null,
+  },
+  "home-factory": {
+    eyebrow: "Our Factory",
+    title: "Infrastructure That Delivers.",
+    lead: null,
   },
   "about-numbers": {
     eyebrow: "By the Numbers",
@@ -198,15 +223,30 @@ export const sectionDefaults: Record<SectionKey, SectionContent> = {
     title: "Engineered for the job.",
     lead: null,
   },
+  "our-factory-numbers": {
+    eyebrow: "By the Numbers",
+    title: "Built for scale. Engineered for excellence.",
+    lead: null,
+  },
 };
 
-export type ImageKey = "about-factory-aisle" | "logo";
+export type ImageKey =
+  | "about-factory-aisle"
+  | "logo"
+  | "home-who-we-are"
+  | "home-card-private-label"
+  | "home-process"
+  | "home-factory";
 
 export type ImageContent = { url: string; alt: string };
 
 export const imageLabels: Record<ImageKey, string> = {
   "about-factory-aisle": "About — Facility Photo",
   logo: "Site Logo",
+  "home-who-we-are": "Home — Who We Are Photo",
+  "home-card-private-label": "Home — Private Label Card Photo",
+  "home-process": "Home — Our Process Photo",
+  "home-factory": "Home — Our Factory Photo",
 };
 
 export const imageDefaults: Record<ImageKey, ImageContent | null> = {
@@ -216,6 +256,22 @@ export const imageDefaults: Record<ImageKey, ImageContent | null> = {
   },
   // No default file — falls back to the built-in SVG mark until an admin uploads one.
   logo: null,
+  "home-who-we-are": {
+    url: "/photos/factory-worker.jpg",
+    alt: "Precision manufacturing at Aurevia Global",
+  },
+  "home-card-private-label": {
+    url: "/photos/factory-worker.jpg",
+    alt: "Aurevia Global private label production",
+  },
+  "home-process": {
+    url: "/photos/workwear.jpg",
+    alt: "Aurevia Global craftsmanship detail",
+  },
+  "home-factory": {
+    url: "/photos/factory-aisle.jpg",
+    alt: "Aurevia Global factory exterior",
+  },
 };
 
 /** Runs a Prisma read for editable content; falls back to defaults if the DB is unreachable (e.g. at build time). */
