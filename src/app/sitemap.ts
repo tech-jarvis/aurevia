@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/capabilities",
     "/private-label",
+    "/our-factory",
     "/contact",
     ...productOrder.map((slug) => `/products/${slug}`),
   ];

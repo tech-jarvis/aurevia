@@ -5,6 +5,7 @@ import { FeatureGrid } from "@/components/feature-grid";
 import { StatGrid } from "@/components/stat-grid";
 import { CtaSection } from "@/components/cta-section";
 import { capabilities } from "@/content/capabilities";
+import { getPageHero, getSection } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   title: "Manufacturing Capabilities",
@@ -12,32 +13,42 @@ export const metadata: Metadata = {
     "End-to-end apparel manufacturing: OEM & ODM production, product development, fabric sourcing, sampling, embroidery, printing, sublimation, quality assurance and global shipping.",
 };
 
-export default function CapabilitiesPage() {
+// Reads admin-editable content — always render fresh.
+export const dynamic = "force-dynamic";
+
+export default async function CapabilitiesPage() {
+  const [hero, what, capacity] = await Promise.all([
+    getPageHero("capabilities"),
+    getSection("capabilities-what"),
+    getSection("capabilities-capacity"),
+  ]);
+
   return (
     <>
       <PageHero
-        eyebrow="Manufacturing Capabilities"
-        title="Built for scale. Engineered for excellence."
-        lead="At Aurevia Global we offer end-to-end manufacturing solutions designed to support your brand at every stage of development and production."
-        image={{
-          src: "/photos/factory-worker.jpg",
-          alt: "Aurevia Global production floor",
-        }}
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        lead={hero.lead ?? undefined}
+        image={
+          hero.imageUrl
+            ? { src: hero.imageUrl, alt: hero.imageAlt ?? "" }
+            : undefined
+        }
       />
 
       <Section>
         <SectionHeading
-          eyebrow="What We Do"
-          title="Full-service apparel manufacturing."
-          lead="Our modern facility is equipped with advanced machinery and a skilled workforce to deliver consistent quality and on-time delivery for brands worldwide."
+          eyebrow={what.eyebrow ?? undefined}
+          title={what.title}
+          lead={what.lead ?? undefined}
         />
         <FeatureGrid items={capabilities} columns={3} className="mt-12" />
       </Section>
 
       <Section className="border-t border-line bg-surface/40">
         <SectionHeading
-          eyebrow="Capacity"
-          title="The scale behind your brand."
+          eyebrow={capacity.eyebrow ?? undefined}
+          title={capacity.title}
           align="center"
         />
         <StatGrid className="mt-12" />

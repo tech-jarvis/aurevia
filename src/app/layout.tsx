@@ -4,6 +4,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { site } from "@/content/site";
+import { getSiteImage } from "@/lib/site-content";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -48,11 +49,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const logo = await getSiteImage("logo");
+
   return (
     <html
       lang="en"
@@ -60,9 +63,9 @@ export default function RootLayout({
       className={`${inter.variable} ${oswald.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-ink text-cream">
-        <SiteHeader />
+        <SiteHeader logoUrl={logo?.url} />
         <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <SiteFooter logoUrl={logo?.url} />
       </body>
     </html>
   );

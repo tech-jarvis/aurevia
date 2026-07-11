@@ -2,71 +2,84 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "./ui/button";
 import { Container } from "./ui/container";
-import { Icon } from "./icon";
-import { site } from "@/content/site";
+import { LogoMark } from "./logo";
 
-const heroPills = [
-  { icon: "HeartPulse", label: "Medical Apparel" },
-  { icon: "HardHat", label: "Workwear" },
-  { icon: "Activity", label: "Activewear" },
-  { icon: "Tag", label: "Private Label" },
-];
-
-/** Home page hero. */
-export function HomeHero() {
+/** Home page hero: big headline + factory photo, sourced from admin-editable content. */
+export function HomeHero({
+  eyebrow,
+  title,
+  lead,
+  imageUrl,
+  imageAlt,
+}: {
+  eyebrow: string;
+  title: string;
+  lead: string | null;
+  imageUrl: string | null;
+  imageAlt: string | null;
+}) {
   return (
-    <section className="bg-aura relative overflow-hidden">
-      {/* faint grid + glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
-          maskImage: "radial-gradient(70% 60% at 50% 30%, black, transparent)",
-        }}
-      />
-      <Container className="relative flex min-h-[88vh] flex-col justify-center py-24">
-        <div className="max-w-3xl">
-          <span className="eyebrow inline-flex items-center gap-2">
-            <span className="h-px w-8 bg-gold" />
-            Premium Apparel Manufacturing
-          </span>
+    <section className="bg-aura relative overflow-hidden border-b border-line">
+      <Container className="relative grid gap-10 py-16 sm:py-20 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:py-24">
+        <div>
+          {eyebrow && (
+            <span className="eyebrow inline-flex items-center gap-2">
+              <span className="h-px w-8 bg-gold" />
+              {eyebrow}
+            </span>
+          )}
 
-          <h1 className="mt-6 heading text-6xl leading-[0.92] text-cream sm:text-7xl lg:text-8xl">
-            Built to <span className="text-gold-gradient">Deliver</span>.
-            <br />
-            Made to <span className="text-gold-gradient">Lead</span>.
+          <h1 className="mt-5 heading text-5xl leading-[0.95] text-cream sm:text-6xl lg:text-7xl">
+            {title}
           </h1>
 
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted">
-            {site.name} partners with brands, distributors and retailers to
-            produce premium medical apparel, workwear and activewear — at global
-            standards for quality, consistency and performance.
-          </p>
+          {lead && (
+            <p className="mt-6 max-w-md text-base leading-relaxed text-muted sm:text-lg">
+              {lead}
+            </p>
+          )}
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
             <ButtonLink href="/contact" size="lg">
               Request a Quote
               <ArrowRight className="h-4 w-4" />
             </ButtonLink>
-            <ButtonLink href="/capabilities" variant="outline" size="lg">
-              Our Capabilities
+            <ButtonLink
+              href="/capabilities"
+              variant="ghost"
+              className="!px-0 uppercase tracking-[0.15em]"
+            >
+              Discover Our Capabilities
+              <ArrowRight className="h-4 w-4" />
             </ButtonLink>
           </div>
+        </div>
 
-          <ul className="mt-14 flex flex-wrap gap-x-8 gap-y-4">
-            {heroPills.map((pill) => (
-              <li
-                key={pill.label}
-                className="inline-flex items-center gap-2 text-sm text-muted"
-              >
-                <Icon name={pill.icon} className="h-4 w-4 text-gold" strokeWidth={1.6} />
-                {pill.label}
-              </li>
-            ))}
-          </ul>
+        <div className="relative">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-line sm:aspect-[5/6] lg:aspect-[4/5]">
+            {imageUrl && (
+              <Image
+                src={imageUrl}
+                alt={imageAlt ?? ""}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
+            )}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-ink/10" />
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-30">
+              <LogoMark className="h-16 w-auto sm:h-20" />
+            </div>
+          </div>
+
+          {/* Decorative vertical "scroll down" label, matches the reference layout. */}
+          <span
+            aria-hidden
+            className="absolute -right-6 bottom-6 hidden text-[10px] uppercase tracking-[0.35em] text-faint [writing-mode:vertical-rl] lg:block"
+          >
+            Scroll Down
+          </span>
         </div>
       </Container>
     </section>

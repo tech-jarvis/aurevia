@@ -54,7 +54,9 @@ export async function login(
     path: "/",
     maxAge: 60 * 60 * 8, // 8 hours
   });
-  redirect("/admin");
+
+  const redirectTo = String(formData.get("redirectTo") ?? "");
+  redirect(redirectTo.startsWith("/admin") ? redirectTo : "/admin");
 }
 
 export async function logout(): Promise<void> {

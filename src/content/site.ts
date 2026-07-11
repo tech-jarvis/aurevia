@@ -41,5 +41,6 @@ export const nav: NavItem[] = [
     ],
   },
   { label: "Private Label", href: "/private-label" },
+  { label: "Our Factory", href: "/our-factory" },
   { label: "Contact", href: "/contact" },
 ];
