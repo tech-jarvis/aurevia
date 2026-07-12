@@ -16,7 +16,10 @@ export type PageHeroKey =
   | "our-factory"
   | "product-medical"
   | "product-workwear"
-  | "product-active";
+  | "product-active"
+  | "product-item-medical"
+  | "product-item-workwear"
+  | "product-item-active";
 
 export type PageHeroContent = {
   eyebrow: string;
@@ -36,6 +39,9 @@ export const pageHeroLabels: Record<PageHeroKey, string> = {
   "product-medical": "Products / Medical — Hero",
   "product-workwear": "Products / Workwear — Hero",
   "product-active": "Products / Active — Hero",
+  "product-item-medical": "Product Detail / Medical — Hero",
+  "product-item-workwear": "Product Detail / Workwear — Hero",
+  "product-item-active": "Product Detail / Active — Hero",
 };
 
 export const pageHeroDefaults: Record<PageHeroKey, PageHeroContent> = {
@@ -102,6 +108,27 @@ export const pageHeroDefaults: Record<PageHeroKey, PageHeroContent> = {
     imageUrl: "/photos/factory-aisle.jpg",
     imageAlt: "Aurevia Global factory floor",
   },
+  "product-item-medical": {
+    eyebrow: "Aurevia Medical",
+    title: "Performance Scrub 01",
+    lead: "Engineered for professionals who demand performance, comfort and confidence.",
+    imageUrl: "/photos/medical.jpg",
+    imageAlt: "Aurevia Medical performance scrub",
+  },
+  "product-item-workwear": {
+    eyebrow: "Aurevia Workwear",
+    title: "Duty Jacket 01",
+    lead: "Engineered for professionals who demand durability, protection and confidence.",
+    imageUrl: "/photos/workwear.jpg",
+    imageAlt: "Aurevia Workwear duty jacket",
+  },
+  "product-item-active": {
+    eyebrow: "Aurevia Active",
+    title: "Performance Tee 01",
+    lead: "Engineered for athletes who demand performance, comfort and confidence.",
+    imageUrl: "/photos/active.jpg",
+    imageAlt: "Aurevia Active performance tee",
+  },
 };
 
 export type SectionKey =
@@ -120,7 +147,11 @@ export type SectionKey =
   | "product-medical-range"
   | "product-workwear-range"
   | "product-active-range"
-  | "our-factory-numbers";
+  | "our-factory-numbers"
+  | "product-item-engineered"
+  | "product-item-fabric"
+  | "product-item-journey"
+  | "product-item-colors";
 
 export type SectionContent = {
   eyebrow: string | null;
@@ -145,6 +176,10 @@ export const sectionLabels: Record<SectionKey, string> = {
   "product-workwear-range": "Products / Workwear — Range",
   "product-active-range": "Products / Active — Range",
   "our-factory-numbers": "Our Factory — By the Numbers",
+  "product-item-engineered": "Product Detail — Engineered Details",
+  "product-item-fabric": "Product Detail — Premium Fabric",
+  "product-item-journey": "Product Detail — Manufacturing Journey",
+  "product-item-colors": "Product Detail — Available Colors",
 };
 
 export const sectionDefaults: Record<SectionKey, SectionContent> = {
@@ -228,6 +263,26 @@ export const sectionDefaults: Record<SectionKey, SectionContent> = {
     title: "Built for scale. Engineered for excellence.",
     lead: null,
   },
+  "product-item-engineered": {
+    eyebrow: "Engineered Details",
+    title: "Built With Purpose.",
+    lead: "Every stitch. Every seam. Every detail is intentional.",
+  },
+  "product-item-fabric": {
+    eyebrow: "Premium Fabric",
+    title: "Performance By Design.",
+    lead: null,
+  },
+  "product-item-journey": {
+    eyebrow: "Our Manufacturing Journey",
+    title: "From Yarn to You.",
+    lead: null,
+  },
+  "product-item-colors": {
+    eyebrow: "Available Colors",
+    title: "Timeless Choices.",
+    lead: null,
+  },
 };
 
 export type ImageKey =
@@ -236,7 +291,20 @@ export type ImageKey =
   | "home-who-we-are"
   | "home-card-private-label"
   | "home-process"
-  | "home-factory";
+  | "home-factory"
+  | "product-item-medical-detail"
+  | "product-item-workwear-detail"
+  | "product-item-active-detail"
+  | "product-item-fabric-1"
+  | "product-item-fabric-2"
+  | "product-item-journey-1"
+  | "product-item-journey-2"
+  | "product-item-journey-3"
+  | "product-item-journey-4"
+  | "product-item-journey-5"
+  | "product-item-journey-6"
+  | "product-item-journey-7"
+  | "product-item-journey-8";
 
 export type ImageContent = { url: string; alt: string };
 
@@ -247,6 +315,19 @@ export const imageLabels: Record<ImageKey, string> = {
   "home-card-private-label": "Home — Private Label Card Photo",
   "home-process": "Home — Our Process Photo",
   "home-factory": "Home — Our Factory Photo",
+  "product-item-medical-detail": "Product Detail / Medical — Engineered Details Photo",
+  "product-item-workwear-detail": "Product Detail / Workwear — Engineered Details Photo",
+  "product-item-active-detail": "Product Detail / Active — Engineered Details Photo",
+  "product-item-fabric-1": "Product Detail — Fabric Photo 1",
+  "product-item-fabric-2": "Product Detail — Fabric Photo 2",
+  "product-item-journey-1": "Product Detail — Journey Photo 1 (Yarn)",
+  "product-item-journey-2": "Product Detail — Journey Photo 2 (Knitting)",
+  "product-item-journey-3": "Product Detail — Journey Photo 3 (Dyeing)",
+  "product-item-journey-4": "Product Detail — Journey Photo 4 (Cutting)",
+  "product-item-journey-5": "Product Detail — Journey Photo 5 (Sewing)",
+  "product-item-journey-6": "Product Detail — Journey Photo 6 (Quality Check)",
+  "product-item-journey-7": "Product Detail — Journey Photo 7 (Packaging)",
+  "product-item-journey-8": "Product Detail — Journey Photo 8 (Delivered)",
 };
 
 export const imageDefaults: Record<ImageKey, ImageContent | null> = {
@@ -272,6 +353,34 @@ export const imageDefaults: Record<ImageKey, ImageContent | null> = {
     url: "/photos/factory-aisle.jpg",
     alt: "Aurevia Global factory exterior",
   },
+  "product-item-medical-detail": {
+    url: "/photos/medical.jpg",
+    alt: "Aurevia Medical scrub detail",
+  },
+  "product-item-workwear-detail": {
+    url: "/photos/workwear.jpg",
+    alt: "Aurevia Workwear jacket detail",
+  },
+  "product-item-active-detail": {
+    url: "/photos/active.jpg",
+    alt: "Aurevia Active apparel detail",
+  },
+  "product-item-fabric-1": {
+    url: "/photos/workwear.jpg",
+    alt: "Aurevia Global fabric close-up",
+  },
+  "product-item-fabric-2": {
+    url: "/photos/active.jpg",
+    alt: "Aurevia Global fabric close-up",
+  },
+  "product-item-journey-1": { url: "/photos/factory-aisle.jpg", alt: "Yarn" },
+  "product-item-journey-2": { url: "/photos/factory-worker.jpg", alt: "Knitting" },
+  "product-item-journey-3": { url: "/photos/medical.jpg", alt: "Dyeing" },
+  "product-item-journey-4": { url: "/photos/workwear.jpg", alt: "Cutting" },
+  "product-item-journey-5": { url: "/photos/active.jpg", alt: "Sewing" },
+  "product-item-journey-6": { url: "/photos/factory-aisle.jpg", alt: "Quality check" },
+  "product-item-journey-7": { url: "/photos/factory-worker.jpg", alt: "Packaging" },
+  "product-item-journey-8": { url: "/photos/medical.jpg", alt: "Delivered" },
 };
 
 /** Runs a Prisma read for editable content; falls back to defaults if the DB is unreachable (e.g. at build time). */

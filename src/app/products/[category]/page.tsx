@@ -13,12 +13,14 @@ import {
   productOrder,
   type ProductCategory,
 } from "@/content/products";
+import Image from "next/image";
 import {
   getPageHero,
   getSection,
   type PageHeroKey,
   type SectionKey,
 } from "@/lib/site-content";
+import { productItems } from "@/content/product-items";
 
 type Params = { params: Promise<{ category: string }> };
 
@@ -45,10 +47,12 @@ export default async function ProductCategoryPage({ params }: Params) {
   if (!line) notFound();
 
   const others = productOrder.filter((s) => s !== line.slug);
-  const [hero, range] = await Promise.all([
+  const [hero, range, featured] = await Promise.all([
     getPageHero(`product-${line.slug}` as PageHeroKey),
     getSection(`product-${line.slug}-range` as SectionKey),
+    getPageHero(`product-item-${line.slug}` as PageHeroKey),
   ]);
+  const featuredSlug = productItems[line.slug].slug;
 
   return (
     <>
@@ -76,6 +80,42 @@ export default async function ProductCategoryPage({ params }: Params) {
             </span>
           ))}
         </div>
+      </Section>
+
+      {/* Featured product */}
+      <Section className="pt-0">
+        <Reveal className="group grid overflow-hidden rounded-3xl border border-line bg-surface-2/60 transition-colors hover:border-gold/40 sm:grid-cols-[1fr_1.3fr]">
+          <div className="relative aspect-[4/3] sm:aspect-auto">
+            {featured.imageUrl && (
+              <Image
+                src={featured.imageUrl}
+                alt={featured.imageAlt ?? featured.title}
+                fill
+                sizes="(max-width: 640px) 100vw, 40vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            )}
+          </div>
+          <div className="flex flex-col justify-center p-8 sm:p-10">
+            <span className="eyebrow">Featured Product</span>
+            <h3 className="mt-3 heading text-2xl text-cream sm:text-3xl">
+              {featured.title}
+            </h3>
+            {featured.lead && (
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">
+                {featured.lead}
+              </p>
+            )}
+            <ButtonLink
+              href={`/products/${line.slug}/${featuredSlug}`}
+              variant="outline"
+              className="mt-6 self-start"
+            >
+              View Product Details
+              <ArrowRight className="h-4 w-4" />
+            </ButtonLink>
+          </div>
+        </Reveal>
       </Section>
 
       <Section className="pt-0">
